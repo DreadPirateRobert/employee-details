@@ -31,7 +31,7 @@
                             <th data-field="columnC" data-filter-control="input" data-sortable="true">Middle Name</th>
                             <th data-field="columnD" data-filter-control="input" data-sortable="true">Employee Contact</th>
                             <th data-field="columnE" data-filter-control="input" data-sortable="true">Employee Email ID</th>
-                            <th data-field="columnF" data-filter-control="input" data-sortable="true">Employee Branch ID</th>
+                            <th data-field="columnF" data-filter-control="input" data-sortable="true">Employee Department ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,11 +39,11 @@
                         <tr>
                             <!--special characters and spaces not allowed in data-field name-->
                             <td> <a data-id="{{row[0]}}"  onclick="Edit(this)"  data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-pencil">View</span></a> </td>
-                            <td>{{ row[0] }}</td>
                             <td>{{ row[1] }}</td>
-                            <td>{{ row[5] }}</td>
-                            <td>{{ row[7] }}</td>
-                            <td>#</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>{{ row[8] }}</td>
+                            <td>{{ row[11] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -24,7 +24,7 @@ mycursor = mydatabase.cursor()
 
 @app.route('/test')
 def example():
-   mycursor.execute('SELECT * FROM employeedetails')
+   mycursor.execute('SELECT * FROM employee')
    data = mycursor.fetchall()
 #    print(data)
    return render_template('test.html', output_data = data)
@@ -48,22 +48,23 @@ def getEmployeeById():
         #     return json.dumps(wish)
         # else:
         #     return render_template('error.html', error = 'Unauthorized Access')
-        query = 'SELECT * FROM employeedetails WHERE firstname="' + request.form.get('id') + '"; '
+        query = 'SELECT * FROM employee WHERE employeeid="' + request.form.get('id') + '"; '
         print(query)
         mycursor.execute(query)
         data = mycursor.fetchall()
         print(request.form.get('id'), data)
         return json.dumps({
-            'firstname': data[0][0], 
-            'middlename': data[0][1],
-            'lastname': data[0][2],
-            'gender': data[0][3],
-            'dob': data[0][4],
-            'mobnumber': data[0][5],
-            'altmobnumber': data[0][6],
-            'emailid': data[0][7],
-            'maritialstatus': data[0][8],
-            'bloodgroup': data[0][9],
+            'firstname': data[0][1], 
+            'middlename': data[0][2],
+            'lastname': data[0][3],
+            'gender': data[0][4],
+            'dob': data[0][5],
+            'mobnumber': data[0][6],
+            'altmobnumber': data[0][7],
+            'emailid': data[0][8],
+            'maritialstatus': data[0][9],
+            'bloodgroup': data[0][10],
+            'departmentid': data[0][11],
         })
     except Exception as e:
         return render_template('error.html',error = str(e))
@@ -79,12 +80,14 @@ def addemployee():
 @app.route('/addemployeedetails',methods=['POST'])
 def addemployeedetails():
     print(request.form.get('firstname'))
-    query = "INSERT INTO employeedetails (firstname, middlename, lastname, gender, dob, mobnumber, altmobnumber, emailid, maritialstatus, bloodgroup) VALUES "
-    query = query + "('{firstname}', '{middlename}', '{lastname}', '{gender}', '{dob}', '{mobnumber}', '{altmobnumber}', '{emailid}', '{gender}', '{bloodgroup}');".format\
+    query = "INSERT INTO employee (firstname, middlename, lastname, gender, dob, mobnumber, altmobnumber, emailid, maritialstatus, bloodgroup, departmentid) VALUES "
+    query = query + "('{firstname}', '{middlename}', '{lastname}', '{gender}', '{dob}', '{mobnumber}', '{altmobnumber}', '{emailid}', '{gender}', '{bloodgroup}', {departmentid});".format\
         (firstname = request.form.get('firstname'), middlename = request.form.get('middlename'), lastname = request.form.get('lastname'), gender = request.form.get('gender'), dob = request.form.get('dob')\
-        , mobnumber = request.form.get('mobnumber'), altmobnumber = request.form.get('altmobnumber'), emailid = request.form.get('emailid'), maritialstatus = request.form.get('maritialstatus'), bloodgroup = request.form.get('bloodgroup'))
+        , mobnumber = request.form.get('mobnumber'), altmobnumber = request.form.get('altmobnumber'), emailid = request.form.get('emailid'), maritialstatus = request.form.get('maritialstatus'), bloodgroup = request.form.get('bloodgroup'),  departmentid = request.form.get('departmentid'))
+    print(query)
     mycursor.execute(query)
-    mycursor.execute('SELECT * FROM employeedetails')
+    
+    mycursor.execute('SELECT * FROM employee;')
     data = mycursor.fetchall()
 
     return render_template('test.html', output_data = data)
