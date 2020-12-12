@@ -4,10 +4,6 @@ from flask import request
 import json
 app = Flask(__name__, template_folder='template')
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
 @app.route('/test123')
 def test_route():
     user_details = {
@@ -20,34 +16,16 @@ def test_route():
 mydatabase = mysql.connector.connect( host = 'localhost', user = 'pratik', passwd = 'pratik@123', database = 'employee', auth_plugin='mysql_native_password')
 mycursor = mydatabase.cursor()
 
-#There you can add home page and others. It is completely depends on you
 
 @app.route('/test')
 def example():
    mycursor.execute('SELECT * FROM employee')
    data = mycursor.fetchall()
-#    print(data)
    return render_template('test.html', output_data = data)
 
 @app.route('/getemployeebyid',methods=['POST'])
 def getEmployeeById():
     try:
-        # if session.get('user'):
- 
-        #     _id = request.form['id']
-        #     _user = session.get('user')
- 
-        #     conn = mysql.connect()
-        #     cursor = conn.cursor()
-        #     cursor.callproc('sp_GetWishById',(_id,_user))
-        #     result = cursor.fetchall()
- 
-        #     wish = []
-        #     wish.append({'Id':result[0][0],'Title':result[0][1],'Description':result[0][2]})
- 
-        #     return json.dumps(wish)
-        # else:
-        #     return render_template('error.html', error = 'Unauthorized Access')
         query = 'SELECT * FROM employee WHERE employeeid="' + request.form.get('id') + '"; '
         print(query)
         mycursor.execute(query)
